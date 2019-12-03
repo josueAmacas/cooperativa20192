@@ -1,0 +1,38 @@
+{% extends "cliente/principal_cliente.html" %}
+{% load static %}
+{% block title %}Cuentas{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-2 col-xs-6, navbar-right" style="margin-right: 3%;margin-top: 2%">
+        <a class="btn btn-block btn-primary btn-xs" href="{% url 'nuevaCuenta'%}">
+            <i class="fa fa-plus" style="font-size: 19px"> Nueva Cuenta</i> 
+        </a>
+    </div>
+    <div class="" style="margin-top: 3%;margin-left: 3%; margin-right: 5%; font-size: 20px">
+        <h2 style="margin-left: 2%"><b>Cliente:</b>  {{cliente.nombres}} {{cliente.apellidos}}</h2>                              
+        <div class="table-responsive">
+            <table id="tabla" class="table table-responsive " style="color: #fff">
+                <thead style="font-size: 20px">                                         
+                    <th>Numero de Cuenta</th>
+                    <th>Tipo de Cuenta</th>
+                    <th>Saldo</th>
+                    <th>Estado</th>
+                    <th>Deposito</th>
+                    <th>Retiro</th>
+                </thead>
+                <tbody>
+                    {% for c in lista %}
+                    <td>{{c.numero}}</td>
+                    <td>{{c.tipoCuenta}}</td>
+                    <td>{{c.saldo}}</td>
+                    <td>{{c.estado}}</td>
+                    <td><a href="{% url 'deposito' numero=c.numero %}" class="btn btn-warning btn-lg waves-effect ml-auto">Deposito</a></td>
+                    <td><a href="{% url 'retiro' numero=c.numero %}" class="btn btn-success btn-lg waves-effect ml-auto">Retiro</a></td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

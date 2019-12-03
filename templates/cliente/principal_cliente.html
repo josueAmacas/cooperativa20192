@@ -1,0 +1,98 @@
+{% load static %}
+{% block header %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Clientes{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!-- Plantilla -->        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">        
+        <!-- Validator -->   
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script language="javascript" type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
+    </head>
+    <body>
+    	<nav class="navbar navbar-inverse"  >
+            <div  class="container-fluid" >
+                <ul class="nav navbar-nav">
+                    <li><a href="#" class="navbar-brand" style="font-size: 170%; font-family:fantasy;font-weight: bold" >Cooperativa JM</a></li>
+                    <li><a href="/cliente">Clientes</a></li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'home_page'%}"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesion</a></li>
+                </ul>
+            </div>
+        </nav>  
+        {% endblock %}
+        {% block content %}
+        <div class="container">
+            <div class="d-flex justify-content-center h-100">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="container" style="color: #fff">
+                            
+                        
+                            <div class="row">
+                                <div class="col-md-2 col-xs-6, navbar-right" style="margin-right: 3%;margin-top: 2%">
+                                    <a class="btn btn-block btn-primary btn-xs" href="crear_cliente">
+                                        <i class="fa fa-plus" style="font-size: 19px"> Agregar Cliente</i> 
+                                    </a>
+                                </div>
+                                <div class="" style="margin-top: 3%;margin-left: 3%; margin-right: 5%; font-size: 20px">
+
+                                    <h3><b>Lista de Clientes</b></h3>                                    
+                                    <div class="table-responsive">
+
+                                        <table id="tabla" class="table table-responsive " style="color: #fff">
+                                            <thead style="font-size: 20px">                                         
+                                            <th>Cedula</th>
+											<th>Apellidos</th>
+											<th>Nombres</th>
+											<th>Celular</th>
+											<th>Cuenta</th>
+                                            </thead>
+
+                                            <tbody>
+                                            	{% for c in lista %}
+													<tr>
+														
+														<td><a class="btn btn-warning" href="modificar_cliente?cedula={{c.cedula}}" style="margin-left: 5%" title="Editar" ><span class="glyphicon glyphicon-pencil"></span>{{c.cedula}}</a></td>
+														<td>{{c.apellidos}}</td>
+														<td>{{c.nombres}}</td>
+														<td>{{c.celular}}</td>
+														<td><a href="principal_cuenta?cedula={{c.cedula}}" class="btn btn-success btn-lg waves-effect ml-auto">Ver Cuenta</a></td>
+													</tr> 
+											
+												{% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endblock %}
+                    </div>  
+                </div>
+                
+            </div>
+        </div>
+        {% block footer %}
+        <hr>
+        <footer >
+            <b><p style="margin-left: 40%">COOPERATIVA 2019</p>
+            <p style="margin-left: 38%">&copy; Creado por: Josue Macas</p></b>
+        </footer>
+        {% endblock %}
+
+    </body>
+</html>
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <title>{% block title %}Inicio{% endblock %}</title>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">                    
+                    <p class="navbar-brand" style="font-size: 25px"><b>COOPERATIVA JAMC 2019</b></p>
+                </div>           
+                <a class="btn btn-danger btn-lg waves-effect ml-auto" style="margin-left: 55%; margin-top: 0.5%" href="/login">Iniciar Sesion</a>
+                </div>
+        </nav>
+        {% block content %}
+        <div class="jumbotron" style="margin-top: 1%">
+            <div class="container">
+                <h1>Hello, world!</h1>
+                <p>
+                    This is a template for a simple marketing or informational website. It includes a large callout
+                    called a jumbotron and three supporting pieces of content. Use it as a starting point to create
+                    something more unique.
+                </p>
+                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Ahorro</h2>
+                    <p>Le ofrecemos los más altos intereses por sus ahorros y la seguridad de disponer de su dinero cuando lo necesite.</p>
+                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Credito</h2>
+                    <p>Le ofrecemos la mayor rentabilidad del mercado por sus inversiones.</p>
+                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Inversiones</h2>
+                    <p>Le ofrecemos la mayor rentabilidad del mercado por sus inversiones.</p>
+                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+            </div>
+        </div> 
+        {% endblock %}
+        {% block footer %}
+        <hr style="margin-top: 15%">
+        <footer >
+            <b><p style="margin-left: 40%">COOPERATIVA 2019</p>
+            <p style="margin-left: 38%">&copy; Creado por: Josue Macas</p></b>
+        </footer>
+        {% endblock %}
+        
+    </body>
+</html>
