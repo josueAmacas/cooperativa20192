@@ -60,7 +60,7 @@ class FormularioModificarCliente(forms.ModelForm):
 class FormularioCuenta(forms.ModelForm):
 	class Meta:
 		model = Cuenta
-		fields = ["numero", "tipoCuenta", "saldo"]
+		fields = ["numero", "tipoCuenta", "saldo","cliente"]
 		labels = {
 			'numero':'Numero de Cuenta',
 			'tipoCuenta':'Tipo de Cuenta',
@@ -70,6 +70,7 @@ class FormularioCuenta(forms.ModelForm):
 			'numero':forms.TextInput(attrs={'class':'input-group form-control'}),
 			'tipoCuenta':forms.Select(attrs={'class':'input-group form-control'}),
 			'saldo':forms.TextInput(attrs={'class':'input-group form-control','placeholder':'Saldo'}),
+			'cliente':forms.Select(attrs={'class':'input-group form-control'}),
 		}
 		
 

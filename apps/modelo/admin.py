@@ -23,7 +23,7 @@ class AdminCuenta(admin.ModelAdmin):
 admin.site.register(Cuenta, AdminCuenta)
 
 class AdminTransaccion(admin.ModelAdmin):
-	list_display = ["fechaTransaccion", "tipo", "descripcion", "responsable"]
+	list_display = ["fechaTransaccion", "tipo", "descripcion", "responsable","cuenta"]
 	list_filter = ["fechaTransaccion", "tipo"]
 	search_fields = ["fechaTransaccion","tipo"]
 	class Meta:

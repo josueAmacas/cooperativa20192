@@ -5,11 +5,11 @@ from django.shortcuts import render
 from .forms import FormularioLogin
 
 def ingresar(request):
-	if request.method == 'POST':
-		formulario = FormularioLogin(request.POST)
+	formulario = FormularioLogin(request.POST)
+	if request.method == 'POST':		
 		if formulario.is_valid():
-			usuario = request.POST['username']
-			clave = request.POST['password']
+			usuario = request.POST.get('username')
+			clave = request.POST.get('password')
 			user = authenticate(username = usuario, password = clave)
 			if user is not None:
 				if user.is_active:

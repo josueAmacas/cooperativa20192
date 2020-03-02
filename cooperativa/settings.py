@@ -110,6 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGIN_URL = reverse_lazy('autenticar') #autenticar es el nombre de una url
+LOGOUT_REDIRECT_URL = reverse_lazy('home_page') 
 
 
 # Internationalization

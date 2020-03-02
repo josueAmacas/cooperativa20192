@@ -18,6 +18,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.views import logout_then_login
 from . import views
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('cliente/', include('apps.cliente.urls')),
     path('login/', include('apps.login.urls')),
     path('', views.homePage, name= 'home_page'),
+     path('logout/', logout_then_login, name = 'logout'),
 ]
 
 if settings.DEBUG:

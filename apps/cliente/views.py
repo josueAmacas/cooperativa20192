@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .forms import FormularioCliente, FormularioCuenta, FormularioModificarCliente, FormularioTransaccion
 from apps.modelo.models import Cliente, Cuenta, Transaccion
 
-
+@login_required
 def principal(request):
 	lista = Cliente.objects.all().order_by('apellidos')
 	context ={
@@ -53,6 +53,7 @@ def crear(request):
 	}
 	return render (request, 'cliente/crear_cliente.html',context)
 
+@login_required
 def modificar(request):
 	dni = request.GET['cedula']
 	cliente = Cliente.objects.get(cedula = dni)
@@ -83,8 +84,9 @@ def modificar(request):
 
 	return render (request, 'cliente/modificar_cliente.html', context)
 
+@login_required
 def listarCuentas(request):
-	dni = request.GET['cedula']
+	dni = request.GET.get('cedula')
 	cliente = Cliente.objects.get(cedula = dni)
 	cuentas = Cuenta.objects.filter(cliente_id = cliente.cliente_id)
 
@@ -94,17 +96,14 @@ def listarCuentas(request):
 	}
 	return render(request, 'cliente/principal_cuenta.html', context)
 
-#@login_required
+@login_required
 def crearCuenta(request):
-	#cliente= request.GET['cedula']
-	#cliente = Cliente.objects.get(cedula = dni)
-	#cliente = Cliente.objects.get(cliente_id = cuenta.cliente_id)
 	formularioCuenta = FormularioCuenta(request.POST)
 	usuario = request.user #peticion que es procesada por el framework agrega el usuario
+	print(usuario)
 	if usuario.groups.filter(name= 'administrativo').exists():
 		if request.method == 'POST':
-			if formularioCuenta.is_valid():
-				
+			if formularioCuenta.is_valid():				
 				datosCuenta = formularioCuenta.cleaned_data #obteniendo todos los datos del formulario de la Cuenta
 				cuenta = Cuenta()
 				cuenta.numero = datosCuenta.get('numero')
@@ -112,10 +111,14 @@ def crearCuenta(request):
 				cuenta.fechaApertura = datosCuenta.get('fechaApertura')
 				cuenta.tipoCuenta = datosCuenta.get('tipoCuenta')
 				cuenta.saldo = datosCuenta.get('saldo')
-				cuenta.cliente = cliente
+				cuenta.cliente = datosCuenta.get('cliente')
 				cuenta.save();
 
-				return redirect(listarCuentas)
+				return redirect(principal)
+			else:
+				print("Error en el formulario")
+		else:
+			print("Error en el methodo")
 	else:
 		return render(request, 'cliente/acceso_prohibido.html')
 	context = {
@@ -124,7 +127,9 @@ def crearCuenta(request):
 
 	return render (request, 'cliente/crear_cuenta.html',context)
 
+@login_required
 def depositar(request, numero):
+	usuario = request.user
 	cuenta = Cuenta.objects.get(numero = numero)
 	cliente = Cliente.objects.get(cliente_id = cuenta.cliente_id)
 	formulario = FormularioTransaccion(request.POST)
@@ -138,7 +143,7 @@ def depositar(request, numero):
 			transaccion.tipo = 'deposito';
 			transaccion.valor = datos.get('valor')			
 			transaccion.descripcion = datos.get('descripcion')
-			transaccion.responsable = 'xxxxxxxxxx'
+			transaccion.responsable = usuario
 			transaccion.cuenta = cuenta
 			transaccion.save()
 			deposito = float (datos.get('valor'))
@@ -152,7 +157,9 @@ def depositar(request, numero):
 	}
 	return render(request, 'transaccion/depositar.html', context)
 
+@login_required
 def retirar(request, numero):
+	usuario = request.user
 	cuenta = Cuenta.objects.get(numero = numero)
 	cliente = Cliente.objects.get(cliente_id = cuenta.cliente_id)
 	formulario = FormularioTransaccion(request.POST)
@@ -166,7 +173,7 @@ def retirar(request, numero):
 			transaccion.tipo = 'retiro';
 			transaccion.valor = datos.get('valor')			
 			transaccion.descripcion = datos.get('descripcion')
-			transaccion.responsable = 'xxxxxxxxxx'
+			transaccion.responsable = usuario
 			transaccion.cuenta = cuenta
 			transaccion.save()
 			deposito = float (datos.get('valor'))

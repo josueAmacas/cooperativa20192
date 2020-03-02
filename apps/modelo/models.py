@@ -24,6 +24,9 @@ class Cliente(models.Model):
 	celular = models.CharField(max_length=13)
 	direccion = models.TextField(max_length=50, default= 'sin direccion')
 
+	def __str__(self):
+		return '{}{}{}'.format(self.nombres,"   ", self.apellidos)
+
 
 class Cuenta(models.Model):
 	listaTipo = (
@@ -40,9 +43,8 @@ class Cuenta(models.Model):
 		'Cliente', 
 		on_delete = models.CASCADE,
 	)
-	def _str_(self):
-		string=str(self.saldo)+";"+str(self.cuenta_id)
-		return string
+	def __str__(self):
+		return '{}'.format(self.numero)
 
 
 class Transaccion(models.Model):
